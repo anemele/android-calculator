@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">计算器</string>
+    <string name="operator_init">\?</string>
+    <string name="operator_add">+</string>
+    <string name="operator_eq">=</string>
+    <string name="operator_sub">-</string>
+    <string name="operator_mul">×</string>
+    <string name="operator_div">÷</string>
+    <string name="default_value">0</string>
+    <string name="operator_ac">AC</string>
+    <string name="operator_del">←</string>
+    <string name="operator_pct">％</string>
+    <string name="operator_7">7</string>
+    <string name="operator_8">8</string>
+    <string name="operator_9">9</string>
+    <string name="operator_4">4</string>
+    <string name="operator_5">5</string>
+    <string name="operator_6">6</string>
+    <string name="operator_1">1</string>
+    <string name="operator_2">2</string>
+    <string name="operator_3">3</string>
+    <string name="operator_dot">·</string>
+    <string name="operator_0">0</string>
+    <string name="operator_pn">+/-</string>
+    <string name="todo">TODO</string>
+    <string name="developing">正在开发，敬请期待</string>
+    <string name="setting">设置</string>
+</resources>
