@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        configUI()
+    }
+
+    private fun configUI() {
         tvInput1 = findViewById(R.id.tv_input1)
         tvInput2 = findViewById(R.id.tv_input2)
 
@@ -91,9 +96,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun numClicked(sth: String) {
         if (isFirstNumber) {
+//            一个数字至多包含一个小数点
             if (sth == "." && num1.contains("."))
                 return
             num1.append(sth)
+//            实时显示第一个数
             tvInput1.text = num1
         } else {
             if (sth == "." && num2.contains("."))
@@ -104,40 +111,54 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun oprClicked(sth: String) {
+//        必须先输入第一个数字，才能输入运算符
+        if (num1.isEmpty()) {
+            Toast.makeText(this, "先输入第一个数字", Toast.LENGTH_SHORT).show()
+            return
+        }
+//        实时显示运算符
         tvOperator.text = sth
+//        开启输入第二个数
         isFirstNumber = false
     }
 
     private fun eqClicked() {
+//        计算前先判断用户输入：1. 第一个数 2. 第二个数 3. 运算符
+        if (num1.isEmpty() || num2.isEmpty() || tvOperator.text.equals("?")) {
+            Toast.makeText(this, "表达式不完整哦", Toast.LENGTH_SHORT).show()
+            return
+        }
+//        转换为 Double 计算，不会溢出
         val number1 = String(num1).toDouble()
         val number2 = String(num2).toDouble()
         var result = 0.0
 
-/*        try {*/
-
-            when (tvOperator.text) {
-                "+" -> result = number1 + number2
-                "-" -> result = number1 - number2
-                "×" -> result = number1 * number2
-                "÷" -> result = number1 / number2
-            }
+        when (tvOperator.text) {
+            "+" -> result = number1 + number2
+            "-" -> result = number1 - number2
+            "×" -> result = number1 * number2
+            "÷" -> result = number1 / number2
+        }
 
 //        如果结果是整数则只显示整数，如何写代码？
 //        if (result.equals(result.toInt())) {
 //            result = result.toInt().toDouble()
 //        }
-            num3 = StringBuilder(result.toString())
-            tvOutput.text = num3
 
-            isFirstNumber = true
-            num1.clear()
-            num2.clear()
-/*        } catch (e: Exception) {
-            allClear()
-        }*/
+        num3 = StringBuilder(result.toString())
+//        显式运算结果
+        tvOutput.text = num3
+//        输入第一个数
+        isFirstNumber = true
+//        清空缓存
+        num1.clear()
+        num2.clear()
+
     }
 
     private fun allClear() {
+//        清空缓存，还原初始状态
+        isFirstNumber = true
         num1.clear()
         num2.clear()
         num3.clear()
@@ -145,25 +166,35 @@ class MainActivity : AppCompatActivity() {
         tvInput2.text = "0"
         tvOutput.text = "0"
         tvOperator.text = "?"
-        isFirstNumber = true
     }
 
     private fun del() {
         if (isFirstNumber) {
+//            数字为空则空操作
             if (num1.isNotEmpty()) {
                 num1.deleteCharAt(num1.length - 1)
                 tvInput1.text = num1
+            }
+        } else {
+            if (num2.isNotEmpty()) {
+                num2.deleteCharAt(num2.length - 1)
+                tvInput2.text = num2
+//                第二个数为空，则删除第一个数，并将运算符设为未知值（？）
             } else {
-                if (num2.isNotEmpty()) {
-                    num2.deleteCharAt(num2.length - 1)
-                    tvInput2.text = num2
-                }
+                isFirstNumber = true
+                tvOperator.text = "?"
+                del()
             }
         }
+
     }
 
+//    切换正负号
     private fun swapPM() {
         if (isFirstNumber) {
+//            如果数字为空则空操作，防止表达式仅一个负号（-）导致出错
+            if (num1.isEmpty())
+                return
             if (num1.startsWith("-")) {
                 num1.deleteCharAt(0)
             } else {
@@ -171,6 +202,8 @@ class MainActivity : AppCompatActivity() {
             }
             tvInput1.text = num1
         } else {
+            if (num2.isEmpty())
+                return
             if (num2.startsWith("-")) {
                 num2.deleteCharAt(0)
             } else {
