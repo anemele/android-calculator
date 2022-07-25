@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         tvOperator = findViewById(R.id.tv_oprt)
         tvOutput = findViewById(R.id.tv_output)
 
+        tvOutput.isSelected = true
+
         btnSetting = findViewById(R.id.btn_setting)
 
         btnSetting.setOnClickListener {
