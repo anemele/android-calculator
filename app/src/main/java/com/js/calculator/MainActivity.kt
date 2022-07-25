@@ -173,11 +173,16 @@ class MainActivity : AppCompatActivity() {
 //            数字为空则空操作
             if (num1.isNotEmpty()) {
                 num1.deleteCharAt(num1.length - 1)
+//                防止表达式仅一个负号（-）导致出错
+                if (num1.toString() == "-")
+                    num1.clear()
                 tvInput1.text = num1
             }
         } else {
             if (num2.isNotEmpty()) {
                 num2.deleteCharAt(num2.length - 1)
+                if (num2.toString() == "-")
+                    num2.clear()
                 tvInput2.text = num2
 //                第二个数为空，则删除第一个数，并将运算符设为未知值（？）
             } else {
@@ -189,7 +194,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    切换正负号
+    //    切换正负号
     private fun swapPM() {
         if (isFirstNumber) {
 //            如果数字为空则空操作，防止表达式仅一个负号（-）导致出错
