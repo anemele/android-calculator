@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">计算器</string>
-    <string name="operator_init">\?</string>
     <string name="operator_add">+</string>
     <string name="operator_eq">=</string>
     <string name="operator_sub">-</string>
     <string name="operator_mul">×</string>
     <string name="operator_div">÷</string>
-    <string name="default_value">0</string>
     <string name="operator_ac">AC</string>
     <string name="operator_del">←</string>
     <string name="operator_pct">％</string>
@@ -25,4 +23,6 @@
     <string name="todo">TODO</string>
     <string name="developing">正在开发，敬请期待</string>
     <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="theme">主题</string>
 </resources>

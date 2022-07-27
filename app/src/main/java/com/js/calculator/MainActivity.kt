@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
     private var num1: StringBuilder = StringBuilder()
     private var num2: StringBuilder = StringBuilder()
-    private var num3: StringBuilder = StringBuilder()
+    private var num3: StringBuilder = StringBuilder("0")
 
     private var isFirstNumber: Boolean = true
 
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
             num1.append(sth)
 //            实时显示第一个数
             tvInput1.text = num1
+            tvInput2.text = ""
         } else {
             if (sth == "." && num2.contains("."))
                 return
@@ -112,14 +113,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun oprClicked(sth: String) {
-//        必须先输入第一个数字，才能输入运算符
-        if (num1.isEmpty()) {
-            Toast.makeText(this, "先输入第一个数字", Toast.LENGTH_SHORT).show()
+    private fun oprClicked(opr: String) {
+//        连续运算，直接点运算符求结果，无需按等号
+        if (!isFirstNumber && num2.isNotEmpty()) {
+            eqClicked()
+            oprClicked(opr)
             return
         }
+//        直接输入运算符则把 num3 作为第一个数
+        if (num1.isEmpty()) {
+            num1 = num3
+            tvInput1.text = num1
+            tvInput2.text = ""
+        }
 //        实时显示运算符
-        tvOperator.text = sth
+        tvOperator.text = opr
 //        开启输入第二个数
         isFirstNumber = false
     }
@@ -146,8 +154,10 @@ class MainActivity : AppCompatActivity() {
 //        if (result.equals(result.toInt())) {
 //            result = result.toInt().toDouble()
 //        }
-
         num3 = StringBuilder(result.toString())
+        if (num3.substring(num3.length - 2) == ".0") {
+            num3.delete(num3.length - 2, num3.length)
+        }
 //        显式运算结果
         tvOutput.text = num3
 //        输入第一个数
@@ -163,11 +173,11 @@ class MainActivity : AppCompatActivity() {
         isFirstNumber = true
         num1.clear()
         num2.clear()
-        num3.clear()
-        tvInput1.text = "0"
-        tvInput2.text = "0"
-        tvOutput.text = "0"
-        tvOperator.text = "?"
+        num3 = StringBuilder("0")
+        tvInput1.text = ""
+        tvInput2.text = ""
+        tvOutput.text = ""
+        tvOperator.text = ""
     }
 
     private fun del() {
@@ -189,7 +199,7 @@ class MainActivity : AppCompatActivity() {
 //                第二个数为空，则删除第一个数，并将运算符设为未知值（？）
             } else {
                 isFirstNumber = true
-                tvOperator.text = "?"
+                tvOperator.text = ""
                 del()
             }
         }
