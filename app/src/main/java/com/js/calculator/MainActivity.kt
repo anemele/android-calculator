@@ -2,24 +2,20 @@ package com.js.calculator
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Gravity
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    private var num1: StringBuilder = StringBuilder()
-    private var num2: StringBuilder = StringBuilder()
-    private var num3: StringBuilder = StringBuilder("0")
-
+    private var result: StringBuilder = StringBuilder("0")
+    private var isNewInput: Boolean = true
     private var isFirstNumber: Boolean = true
 
-    private lateinit var tvInput1: TextView
-    private lateinit var tvInput2: TextView
-    private lateinit var tvOperator: TextView
-    private lateinit var tvOutput: TextView
+    private lateinit var etInput1: EditText
+    private lateinit var etInput2: EditText
     private lateinit var btnSetting: ImageButton
+    private lateinit var tvOperator: TextView
+    private lateinit var etOutput: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,20 +24,32 @@ class MainActivity : AppCompatActivity() {
         configUI()
     }
 
+    override fun onBackPressed() {
+        val home = Intent(Intent.ACTION_MAIN)
+        home.addCategory(Intent.CATEGORY_HOME)
+        home.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(home)
+    }
+
+    private fun centerToastShow(msg: String) {
+        val toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
     private fun configUI() {
-        tvInput1 = findViewById(R.id.tv_input1)
-        tvInput2 = findViewById(R.id.tv_input2)
+        etInput1 = findViewById(R.id.et_input1)
+        etInput2 = findViewById(R.id.et_input2)
 
         tvOperator = findViewById(R.id.tv_oprt)
-        tvOutput = findViewById(R.id.tv_output)
-
-        tvOutput.isSelected = true
+        etOutput = findViewById(R.id.et_output)
 
         btnSetting = findViewById(R.id.btn_setting)
 
         btnSetting.setOnClickListener {
-            val intent = Intent(this, MoreActivity().javaClass)
-            startActivity(intent)
+            centerToastShow("设置（正在开发）")
+//            intent.setClass(this, MoreActivity().javaClass)
+//            startActivity(intent)
         }
 
         val btn0: Button = findViewById(R.id.btn_0)
@@ -55,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         val btn8: Button = findViewById(R.id.btn_8)
         val btn9: Button = findViewById(R.id.btn_9)
         val btnDot: Button = findViewById(R.id.btn_dot)
+        val btn00: Button = findViewById(R.id.btn_00)
 
         val btnAdd: Button = findViewById(R.id.btn_add)
         val btnSub: Button = findViewById(R.id.btn_sub)
@@ -67,9 +76,7 @@ class MainActivity : AppCompatActivity() {
         val btnDel: Button = findViewById(R.id.btn_del)
 
         val btnPM: Button = findViewById(R.id.btn_pm)
-/*
-        val btnPct: Button = findViewById(R.id.btn_pct)
-*/
+
         btn0.setOnClickListener { numClicked("0") }
         btn1.setOnClickListener { numClicked("1") }
         btn2.setOnClickListener { numClicked("2") }
@@ -81,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         btn8.setOnClickListener { numClicked("8") }
         btn9.setOnClickListener { numClicked("9") }
         btnDot.setOnClickListener { numClicked(".") }
+        btn00.setOnClickListener { numClicked("00") }
 
         btnAdd.setOnClickListener { oprClicked("+") }
         btnSub.setOnClickListener { oprClicked("-") }
@@ -97,34 +105,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun numClicked(sth: String) {
+        if (isNewInput) {
+            etInput1.text.clear()
+            etInput2.text.clear()
+            tvOperator.text = ""
+            isNewInput = false
+        }
+
         if (isFirstNumber) {
 //            一个数字至多包含一个小数点
-            if (sth == "." && num1.contains("."))
+            if (sth == "." && etInput1.text.contains("."))
                 return
-            num1.append(sth)
-//            实时显示第一个数
-            tvInput1.text = num1
-            tvInput2.text = ""
+            etInput1.text.append(sth)
         } else {
-            if (sth == "." && num2.contains("."))
+            if (sth == "." && etInput2.text.contains("."))
                 return
-            num2.append(sth)
-            tvInput2.text = num2
+            etInput2.text.append(sth)
         }
     }
 
     private fun oprClicked(opr: String) {
+        if (isNewInput) {
+            etInput1.text.clear()
+            etInput2.text.clear()
+            isNewInput = false
+        }
 //        连续运算，直接点运算符求结果，无需按等号
-        if (!isFirstNumber && num2.isNotEmpty()) {
+        if (!isFirstNumber && etInput2.text.isNotEmpty()) {
             eqClicked()
             oprClicked(opr)
             return
         }
-//        直接输入运算符则把 num3 作为第一个数
-        if (num1.isEmpty()) {
-            num1 = num3
-            tvInput1.text = num1
-            tvInput2.text = ""
+//        直接输入运算符则把结果作为第一个数
+        if (etInput1.text.isEmpty()) {
+            etInput1.setText(result)
+            etInput2.text.clear()
         }
 //        实时显示运算符
         tvOperator.text = opr
@@ -134,68 +149,58 @@ class MainActivity : AppCompatActivity() {
 
     private fun eqClicked() {
 //        计算前先判断用户输入：1. 第一个数 2. 第二个数 3. 运算符
-        if (num1.isEmpty() || num2.isEmpty() || tvOperator.text.equals("?")) {
-            Toast.makeText(this, "表达式不完整哦", Toast.LENGTH_SHORT).show()
-            return
+        if (etInput1.text.isEmpty() || etInput2.text.isEmpty() || tvOperator.text.isEmpty()) {
+            return centerToastShow("表达式不完整")
         }
 //        转换为 Double 计算，不会溢出
-        val number1 = String(num1).toDouble()
-        val number2 = String(num2).toDouble()
-        var result = 0.0
+        val number1 = etInput1.text.toString().toDouble()
+        val number2 = etInput2.text.toString().toDouble()
+        var number3 = 0.0
 
         when (tvOperator.text) {
-            "+" -> result = number1 + number2
-            "-" -> result = number1 - number2
-            "×" -> result = number1 * number2
-            "÷" -> result = number1 / number2
+            "+" -> number3 = number1 + number2
+            "-" -> number3 = number1 - number2
+            "×" -> number3 = number1 * number2
+            "÷" -> number3 = number1 / number2
         }
 
-//        如果结果是整数则只显示整数，如何写代码？
-//        if (result.equals(result.toInt())) {
-//            result = result.toInt().toDouble()
-//        }
-        num3 = StringBuilder(result.toString())
-        if (num3.substring(num3.length - 2) == ".0") {
-            num3.delete(num3.length - 2, num3.length)
+        result = StringBuilder(number3.toString())
+        if (result.endsWith(".0")) {
+            result.delete(result.length - 2, result.length)
         }
 //        显式运算结果
-        tvOutput.text = num3
-//        输入第一个数
+        etOutput.setText(result)
+//        开启新一轮输入
+        isNewInput = true
+//        开启输入第一个数
         isFirstNumber = true
-//        清空缓存
-        num1.clear()
-        num2.clear()
-
     }
 
     private fun allClear() {
 //        清空缓存，还原初始状态
+        result = StringBuilder("0")
+        isNewInput = true
         isFirstNumber = true
-        num1.clear()
-        num2.clear()
-        num3 = StringBuilder("0")
-        tvInput1.text = ""
-        tvInput2.text = ""
-        tvOutput.text = ""
+        etInput1.text.clear()
+        etInput2.text.clear()
+        etOutput.text.clear()
         tvOperator.text = ""
     }
 
     private fun del() {
         if (isFirstNumber) {
 //            数字为空则空操作
-            if (num1.isNotEmpty()) {
-                num1.deleteCharAt(num1.length - 1)
+            if (etInput1.text.isNotEmpty()) {
+                etInput1.setText(etInput1.text.dropLast(1))
 //                防止表达式仅一个负号（-）导致出错
-                if (num1.toString() == "-")
-                    num1.clear()
-                tvInput1.text = num1
+                if (etInput1.text.toString() == "-")
+                    etInput1.text.clear()
             }
         } else {
-            if (num2.isNotEmpty()) {
-                num2.deleteCharAt(num2.length - 1)
-                if (num2.toString() == "-")
-                    num2.clear()
-                tvInput2.text = num2
+            if (etInput2.text.isNotEmpty()) {
+                etInput2.setText(etInput2.text.dropLast(1))
+                if (etInput2.text.toString() == "-")
+                    etInput2.text.clear()
 //                第二个数为空，则删除第一个数，并将运算符设为未知值（？）
             } else {
                 isFirstNumber = true
@@ -210,23 +215,21 @@ class MainActivity : AppCompatActivity() {
     private fun swapPM() {
         if (isFirstNumber) {
 //            如果数字为空则空操作，防止表达式仅一个负号（-）导致出错
-            if (num1.isEmpty())
+            if (etInput1.text.isEmpty())
                 return
-            if (num1.startsWith("-")) {
-                num1.deleteCharAt(0)
+            if (etInput1.text.startsWith("-")) {
+                etInput1.setText(etInput1.text.removePrefix("-"))
             } else {
-                num1.insert(0, "-")
+                etInput1.text.insert(0, "-")
             }
-            tvInput1.text = num1
         } else {
-            if (num2.isEmpty())
+            if (etInput2.text.isEmpty())
                 return
-            if (num2.startsWith("-")) {
-                num2.deleteCharAt(0)
+            if (etInput2.text.startsWith("-")) {
+                etInput2.setText(etInput2.text.removePrefix("-"))
             } else {
-                num2.insert(0, "-")
+                etInput2.text.insert(0, "-")
             }
-            tvInput2.text = num2
         }
     }
 }
