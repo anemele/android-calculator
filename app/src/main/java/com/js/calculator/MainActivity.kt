@@ -2,9 +2,12 @@ package com.js.calculator
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.js.calculator.utils.ToastUtil
 
 class MainActivity : AppCompatActivity() {
     private var result: StringBuilder = StringBuilder("0")
@@ -31,12 +34,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(home)
     }
 
-    private fun centerToastShow(msg: String) {
-        val toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
-
     private fun configUI() {
         etInput1 = findViewById(R.id.et_input1)
         etInput2 = findViewById(R.id.et_input2)
@@ -47,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         btnSetting = findViewById(R.id.btn_setting)
 
         btnSetting.setOnClickListener {
-            centerToastShow("设置（正在开发）")
+            ToastUtil.showLastShortMessage(this, "设置（正在开发）")
 //            intent.setClass(this, MoreActivity().javaClass)
 //            startActivity(intent)
         }
@@ -150,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     private fun eqClicked() {
 //        计算前先判断用户输入：1. 第一个数 2. 第二个数 3. 运算符
         if (etInput1.text.isEmpty() || etInput2.text.isEmpty() || tvOperator.text.isEmpty()) {
-            return centerToastShow("表达式不完整")
+            return ToastUtil.showLastShortMessage(this, "表达式不完整")
         }
 //        转换为 Double 计算，不会溢出
         val number1 = etInput1.text.toString().toDouble()
