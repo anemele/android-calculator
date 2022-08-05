@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity() {
 
     //    显示错误输出，如除以 0
     private fun displayResult(message: String) {
-        result.clear()
+        result = StringBuilder("0")
         etOutput.setText(message)
         isNewInput = true
         isFirstNumber = true
