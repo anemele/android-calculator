@@ -8,6 +8,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.js.calculator.utils.ToastUtil
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class MainActivity : AppCompatActivity() {
     private var result: StringBuilder = StringBuilder("0")
@@ -149,27 +151,42 @@ class MainActivity : AppCompatActivity() {
         if (etInput1.text.isEmpty() || etInput2.text.isEmpty() || tvOperator.text.isEmpty()) {
             return ToastUtil.showLastShortMessage(this, "表达式不完整")
         }
-//        转换为 Double 计算，不会溢出
-        val number1 = etInput1.text.toString().toDouble()
-        val number2 = etInput2.text.toString().toDouble()
-        var number3 = 0.0
+//        转换为 BigDecimal 计算，结果更精确
+        val number1 = BigDecimal(etInput1.text.toString())
+        val number2 = BigDecimal(etInput2.text.toString())
+        var number3 = BigDecimal("0")
 
         when (tvOperator.text) {
-            "+" -> number3 = number1 + number2
-            "-" -> number3 = number1 - number2
-            "×" -> number3 = number1 * number2
-            "÷" -> number3 = number1 / number2
+            "+" -> number3 = number1.add(number2)
+            "-" -> number3 = number1.subtract(number2)
+            "×" -> number3 = number1.multiply(number2)
+            "÷" -> {
+                if (number2.compareTo(number3) == 0) {
+                    return displayResult("Division by Zero")
+                }
+//                保留 8 位小数
+                number3 = number1.divide(number2, 8, RoundingMode.HALF_EVEN)
+            }
         }
 
-        result = StringBuilder(number3.toString())
-        if (result.endsWith(".0")) {
-            result.delete(result.length - 2, result.length)
-        }
+        displayResult(number3)
+    }
+
+    private fun displayResult(number: BigDecimal) {
+//        去除末尾多余的 0，避免以科学记数法显示
+        result = StringBuilder(number.stripTrailingZeros().toPlainString())
 //        显式运算结果
         etOutput.setText(result)
 //        开启新一轮输入
         isNewInput = true
 //        开启输入第一个数
+        isFirstNumber = true
+    }
+
+    //    显示错误输出，如除以 0
+    private fun displayResult(message: String) {
+        etOutput.setText(message)
+        isNewInput = true
         isFirstNumber = true
     }
 
