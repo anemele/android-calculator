@@ -113,11 +113,11 @@ class MainActivity : AppCompatActivity() {
 
         if (isFirstNumber) {
 //            一个数字至多包含一个小数点
-            if (sth == "." && etInput1.text.contains("."))
+            if (sth == "." && (etInput1.text.isEmpty() || etInput1.text.contains(".")))
                 return
             etInput1.text.append(sth)
         } else {
-            if (sth == "." && etInput2.text.contains("."))
+            if (sth == "." && (etInput2.text.isEmpty() || etInput2.text.contains(".")))
                 return
             etInput2.text.append(sth)
         }
