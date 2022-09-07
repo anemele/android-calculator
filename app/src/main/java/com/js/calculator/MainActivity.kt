@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
         btnSetting = findViewById(R.id.btn_setting)
 
         btnSetting.setOnClickListener {
-            ToastUtil.showLastShortMessage(this, "设置（正在开发）")
-//            intent.setClass(this, MoreActivity().javaClass)
-//            startActivity(intent)
+//            ToastUtil.showLastShortMessage(this, "设置（正在开发）")
+            intent.setClass(this, MoreActivity().javaClass)
+            startActivity(intent)
         }
 
         val btn0: Button = findViewById(R.id.btn_0)
