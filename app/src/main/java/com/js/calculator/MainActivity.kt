@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etInput1: EditText
     private lateinit var etInput2: EditText
     private lateinit var btnSetting: ImageButton
+    private lateinit var btnHistory: ImageButton
     private lateinit var tvOperator: TextView
     private lateinit var etOutput: EditText
 
@@ -40,15 +41,21 @@ class MainActivity : AppCompatActivity() {
         etInput1 = findViewById(R.id.et_input1)
         etInput2 = findViewById(R.id.et_input2)
 
-        tvOperator = findViewById(R.id.tv_oprt)
+        tvOperator = findViewById(R.id.tv_operator)
         etOutput = findViewById(R.id.et_output)
 
         btnSetting = findViewById(R.id.btn_setting)
+        btnHistory = findViewById(R.id.btn_history)
 
         btnSetting.setOnClickListener {
-//            ToastUtil.showLastShortMessage(this, "设置（正在开发）")
-            intent.setClass(this, MoreActivity().javaClass)
-            startActivity(intent)
+            ToastUtil.showLastShortMessage(this, "设置（正在开发）")
+//            intent.setClass(this, MoreActivity().javaClass)
+//            startActivity(intent)
+        }
+        btnHistory.setOnClickListener {
+            ToastUtil.showLastShortMessage(this, "计算历史（正在开发）")
+//            intent.setClass(this, HistoryActivity().javaClass)
+//            startActivity(intent)
         }
 
         val btn0: Button = findViewById(R.id.btn_0)

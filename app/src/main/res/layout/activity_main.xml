@@ -10,26 +10,54 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:background="@color/green">
 
         <ImageButton
+            android:id="@+id/btn_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/todo"
+            android:src="@mipmap/history"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
             android:id="@+id/btn_setting"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/todo"
             android:src="@mipmap/setting"
-            app:layout_constraintBottom_toTopOf="@+id/tv_oprt"
-            app:layout_constraintEnd_toStartOf="@+id/et_input1"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="1" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/light_green">
 
         <EditText
             android:id="@+id/et_input1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:autofillHints=""
             android:background="@android:color/transparent"
@@ -42,24 +70,24 @@
             android:singleLine="true"
             android:textColor="@color/grey_cc"
             android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@+id/et_input2"
+            app:layout_constraintBottom_toTopOf="@id/et_input2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
-            app:layout_constraintStart_toEndOf="@id/btn_setting"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_oprt"
+            android:id="@+id/tv_operator"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:gravity="center"
             android:textSize="50sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/et_output"
             app:layout_constraintEnd_toStartOf="@id/et_input2"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_setting"
+            app:layout_constraintTop_toBottomOf="@id/et_input1"
             app:layout_constraintVertical_weight="1" />
 
         <EditText
@@ -77,34 +105,38 @@
             android:singleLine="true"
             android:textColor="@color/grey_cc"
             android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/et_output"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
-            app:layout_constraintStart_toEndOf="@id/tv_oprt"
-            app:layout_constraintTop_toBottomOf="@+id/et_input1" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toEndOf="@id/tv_operator"
+            app:layout_constraintTop_toBottomOf="@id/et_input1" />
 
-    <EditText
-        android:id="@+id/et_output"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:autofillHints=""
-        android:background="@color/light_green"
-        android:focusable="false"
-        android:gravity="center|end"
-        android:hint="@null"
-        android:inputType="text"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/et_output"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:autofillHints=""
+            android:background="@color/light_green"
+            android:focusable="false"
+            android:gravity="center|end"
+            android:hint="@null"
+            android:inputType="text"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_input2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="6"
         android:background="@color/white"
         android:baselineAligned="false">
 
@@ -184,7 +216,7 @@
             app:layout_constraintBottom_toTopOf="@id/button_line3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_line1">
+            app:layout_constraintTop_toBottomOf="@id/button_line1">
 
             <Button
                 android:id="@+id/btn_7"

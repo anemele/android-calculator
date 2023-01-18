@@ -29,6 +29,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                // apk name: com.js.calculator_release_v1.0_c1_202301181513.apk
+                outputFileName = "${applicationId}_${variant.buildType.name}" +
+                        "_v${variant.versionName}_c${variant.versionCode}" +
+                        "_${new Date().format("yyyyMMddHHmm")}.apk"
+            }
+    }
 }
 
 dependencies {
