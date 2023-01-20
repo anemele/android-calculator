@@ -16,10 +16,10 @@
         <ImageButton
             android:id="@+id/btn_history"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:contentDescription="@string/todo"
+            android:padding="20dp"
             android:src="@mipmap/history"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +39,10 @@
         <ImageButton
             android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:contentDescription="@string/todo"
+            android:padding="20dp"
             android:src="@mipmap/setting"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,9 +55,20 @@
         android:layout_weight="3"
         android:background="@color/light_green">
 
+        <View
+            android:id="@+id/view_foo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/tv_operator"
+            app:layout_constraintEnd_toStartOf="@id/et_input1"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/et_input1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:autofillHints=""
             android:background="@android:color/transparent"
@@ -73,7 +84,7 @@
             app:layout_constraintBottom_toTopOf="@id/et_input2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="7"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/view_foo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -87,8 +98,7 @@
             app:layout_constraintEnd_toStartOf="@id/et_input2"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_input1"
-            app:layout_constraintVertical_weight="1" />
+            app:layout_constraintTop_toBottomOf="@id/view_foo" />
 
         <EditText
             android:id="@+id/et_input2"
@@ -138,334 +148,310 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:background="@color/white"
-        android:baselineAligned="false">
+        android:padding="15dp">
 
-        <LinearLayout
-            android:id="@+id/button_line1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/button_line2"
-            app:layout_constraintEnd_toEndOf="parent"
+        <Button
+            android:id="@+id/btn_ac"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_ac"
+            android:textColor="@color/future_blue"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_7"
+            app:layout_constraintEnd_toStartOf="@id/btn_del"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btn_ac"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_ac"
-                android:textColor="@color/future_blue"
-                android:textSize="25sp" />
+        <Button
+            android:id="@+id/btn_del"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_del"
+            android:textColor="@color/future_blue"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/btn_8"
+            app:layout_constraintEnd_toStartOf="@id/btn_pm"
+            app:layout_constraintStart_toEndOf="@id/btn_ac"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btn_del"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_del"
-                android:textColor="@color/future_blue"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+        <Button
+            android:id="@+id/btn_pm"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_pn"
+            android:textColor="@color/future_blue"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_9"
+            app:layout_constraintEnd_toStartOf="@id/btn_div"
+            app:layout_constraintStart_toEndOf="@id/btn_del"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/btn_pm"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_pn"
-                android:textColor="@color/future_blue"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/btn_div"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_div"
-                android:textColor="@color/future_blue"
-                android:textSize="40sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/button_line2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/button_line3"
+        <Button
+            android:id="@+id/btn_div"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_div"
+            android:textColor="@color/future_blue"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_mul"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_pm"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_7"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_7"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_4"
+            app:layout_constraintEnd_toStartOf="@id/btn_8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_line1">
+            app:layout_constraintTop_toBottomOf="@id/btn_ac" />
 
-            <Button
-                android:id="@+id/btn_7"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_7"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_8"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_8"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_5"
+            app:layout_constraintEnd_toStartOf="@id/btn_9"
+            app:layout_constraintStart_toEndOf="@id/btn_7"
+            app:layout_constraintTop_toBottomOf="@id/btn_del" />
 
-            <Button
-                android:id="@+id/btn_8"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_8"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_9"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_9"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_6"
+            app:layout_constraintEnd_toStartOf="@id/btn_mul"
+            app:layout_constraintStart_toEndOf="@id/btn_8"
+            app:layout_constraintTop_toBottomOf="@id/btn_pm" />
 
-            <Button
-                android:id="@+id/btn_9"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_9"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/btn_mul"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_mul"
-                android:textColor="@color/future_blue"
-                android:textSize="40sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/button_line3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/button_line4"
+        <Button
+            android:id="@+id/btn_mul"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_mul"
+            android:textColor="@color/future_blue"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_sub"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_9"
+            app:layout_constraintTop_toBottomOf="@id/btn_div" />
+
+        <Button
+            android:id="@+id/btn_4"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_4"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_1"
+            app:layout_constraintEnd_toStartOf="@id/btn_5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_line2">
+            app:layout_constraintTop_toBottomOf="@id/btn_7" />
 
-            <Button
-                android:id="@+id/btn_4"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_4"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_5"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_5"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_2"
+            app:layout_constraintEnd_toStartOf="@id/btn_6"
+            app:layout_constraintStart_toEndOf="@id/btn_4"
+            app:layout_constraintTop_toBottomOf="@id/btn_8" />
 
-            <Button
-                android:id="@+id/btn_5"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_5"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_6"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_6"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_3"
+            app:layout_constraintEnd_toStartOf="@id/btn_sub"
+            app:layout_constraintStart_toEndOf="@id/btn_5"
+            app:layout_constraintTop_toBottomOf="@id/btn_9" />
 
-            <Button
-                android:id="@+id/btn_6"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_6"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/btn_sub"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_sub"
-                android:textColor="@color/future_blue"
-                android:textSize="40sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/button_line4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/button_line5"
+        <Button
+            android:id="@+id/btn_sub"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_sub"
+            android:textColor="@color/future_blue"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_add"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_6"
+            app:layout_constraintTop_toBottomOf="@id/btn_mul" />
+
+
+        <Button
+            android:id="@+id/btn_1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_1"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_00"
+            app:layout_constraintEnd_toStartOf="@id/btn_2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_line3">
+            app:layout_constraintTop_toBottomOf="@id/btn_4" />
 
-            <Button
-                android:id="@+id/btn_1"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_1"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_2"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_0"
+            app:layout_constraintEnd_toStartOf="@id/btn_3"
+            app:layout_constraintStart_toEndOf="@id/btn_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_5" />
 
-            <Button
-                android:id="@+id/btn_2"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_2"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_3"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_3"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_dot"
+            app:layout_constraintEnd_toStartOf="@id/btn_add"
+            app:layout_constraintStart_toEndOf="@id/btn_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_6" />
 
-            <Button
-                android:id="@+id/btn_3"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_3"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
+        <Button
+            android:id="@+id/btn_add"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_add"
+            android:textColor="@color/future_blue"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_eq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_sub" />
 
-            <Button
-                android:id="@+id/btn_add"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_add"
-                android:textColor="@color/future_blue"
-                android:textSize="40sp" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/button_line5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
+        <Button
+            android:id="@+id/btn_00"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_00"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_1" />
+
+        <Button
+            android:id="@+id/btn_0"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_0"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_dot"
+            app:layout_constraintStart_toEndOf="@id/btn_00"
+            app:layout_constraintTop_toBottomOf="@id/btn_2" />
+
+        <Button
+            android:id="@+id/btn_dot"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_dot"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_eq"
+            app:layout_constraintStart_toEndOf="@id/btn_0"
+            app:layout_constraintTop_toBottomOf="@id/btn_3" />
+
+        <Button
+            android:id="@+id/btn_eq"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:text="@string/operator_eq"
+            android:textColor="@color/dark_green"
+            android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_line4">
-
-            <Button
-                android:id="@+id/btn_00"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_00"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/btn_0"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_0"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/btn_dot"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_dot"
-                android:textColor="@color/black"
-                android:textSize="30sp" />
-
-            <Button
-                android:id="@+id/btn_eq"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:text="@string/operator_eq"
-                android:textColor="@color/dark_green"
-                android:textSize="40sp" />
-        </LinearLayout>
+            app:layout_constraintStart_toEndOf="@id/btn_dot"
+            app:layout_constraintTop_toBottomOf="@id/btn_add" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
