@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.js.calculator.utils.ToastUtil
@@ -18,8 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var etInput1: EditText
     private lateinit var etInput2: EditText
-    private lateinit var btnSetting: ImageButton
-    private lateinit var btnHistory: ImageButton
     private lateinit var tvOperator: TextView
     private lateinit var etOutput: EditText
 
@@ -43,20 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         tvOperator = findViewById(R.id.tv_operator)
         etOutput = findViewById(R.id.et_output)
-
-        btnSetting = findViewById(R.id.btn_setting)
-        btnHistory = findViewById(R.id.btn_history)
-
-        btnSetting.setOnClickListener {
-            ToastUtil.showLastShortMessage(this, "设置（正在开发）")
-//            intent.setClass(this, MoreActivity().javaClass)
-//            startActivity(intent)
-        }
-        btnHistory.setOnClickListener {
-            ToastUtil.showLastShortMessage(this, "计算历史（正在开发）")
-//            intent.setClass(this, HistoryActivity().javaClass)
-//            startActivity(intent)
-        }
 
         val btn0: Button = findViewById(R.id.btn_0)
         val btn1: Button = findViewById(R.id.btn_1)
